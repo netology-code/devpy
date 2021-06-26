@@ -1,45 +1,58 @@
-# Домашнее задание к лекции 9.«Работа с библиотекой requests, http-запросы»
+# K лекции 9.«Работа с библиотекой requests, http-запросы»
+```
+import requests
+import os
+```
 
 ## Задача №1
-Кто самый умный супергерой?
-Есть [API по информации о супергероях](https://superheroapi.com/?ref=apilist.fun#appearance). Нужно определить кто самый умный(intelligence) из трех супергероев- Hulk, Captain America, Thanos.
-Для определения id нужно использовать метод _/search/name_  
+``` 
+def get_smart_superhero(names):
+    top_intelligence = -1
+    top_name = ''
+    for name in names:
+        r = requests.get(f'https://www.superheroapi.com/api.php/2619421814940190/search/{name}')
+        data = r.json()
+        intelligence = int(data['results'][0]['powerstats']['intelligence'])
+        print(name, intelligence)
+        if intelligence > top_intelligence:
+            top_intelligence = intelligence
+            top_name = name
 
-Токен, который нужно использовать для доступа к API: 2619421814940190.  
-Таким образом, все адреса для доступа к API должны начинаться с https://superheroapi.com/api/2619421814940190/.  
+    print(f'{top_name} - самый умный, его интеллект равен {top_intelligence}.')
 
-> :warning: Недавно сервис SuperHero API переехал на заблокированный Роскомнадзором IP-адрес, из-за чего некоторые интернет-провайдеры заблокировали к нему доступ, он может быть недоступен. В таком случае решайте это задание на [REPL.it](https://repl.it/) — оттуда всё должно быть доступно.  
 
+get_smart_superhero(['Hulk', 'Captain America', 'Thanos'])
+```
 
 ## Задача №2
-У Яндекс.Диска есть очень удобное и простое API. Для описания всех его методов существует [Полигон](https://yandex.ru/dev/disk/poligon/).
-Нужно написать программу, которая принимает на вход путь до файла на компьютере и сохраняет на Яндекс.Диск с таким же именем.
-1. Все ответы приходят в формате json;
-2. Загрузка файла по ссылке происходит с помощью метода put и передачи туда данных;
-3. Токен можно получить кликнув на полигоне на кнопку "Получить OAuth-токен".  
-
-HOST: https://cloud-api.yandex.net:443
-
-*Важно:* Токен публиковать в github не нужно, переменную для токена нужно оставить пустой! 
-
-Шаблон для программы
-```python
+```
 class YaUploader:
     def __init__(self, token: str):
         self.token = token
 
     def upload(self, file_path: str):
-        """Метод загруджает файл file_path на яндекс диск"""
-        # Тут ваша логика
-        return 'Вернуть ответ об успешной загрузке'
+        my_headers = {'Authorization': self.token}
+        fname = os.path.split(file_path)[1]
+        my_params = {'path': '/' + fname, 'overwrite': 'true'}
+        url = 'https://cloud-api.yandex.net:443/v1/disk/resources/upload'
+        r = requests.get(url, headers=my_headers, params=my_params)
+
+        if r.status_code != requests.codes.ok:
+            return f'При получении ссылки для загрузки произошла ошибка (код: {r.status_code})'
+
+        href = r.json()['href']
+        with open(file_path, 'rb') as fh:
+            r = requests.put(href, data=fh.read())
+
+        if r.status_code not in (requests.codes.created, requests.codes.accepted):
+            return f'При загрузке файла произошла ошибка (код: {r.status_code})'
+        return f'Файл {fname} успешно загружен на Яндекс.Диск'
 
 
 if __name__ == '__main__':
-    uploader = YaUploader('<Your Yandex Disk token>')
-    result = uploader.upload('c:\my_folder\file.txt')
-
+    my_file_path = 'result.txt'
+    auth_token = ''
+    uploader = YaUploader(auth_token)
+    result = uploader.upload(my_file_path)
+    print(result)
 ```
-## \*Задача №3(необязательное)
-Самый важный сайт для программистов это [stackoverflow](https://stackoverflow.com/). И у него тоже есть [API](https://api.stackexchange.com/docs)
-Нужно написать программу, которая выводит все вопросы за последние два дня и содержит тэг 'Python'.
-Для этого задания токен не требуется.
