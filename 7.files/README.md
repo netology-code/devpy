@@ -1,126 +1,84 @@
-# Домашнее задание к лекции «Открытие и чтение файла, запись в файл»
+# K лекции «Открытие и чтение файла, запись в файл»
 
-Необходимо написать программу для кулинарной книги.
-
-Список рецептов должен храниться в отдельном файле в следующем формате:
+## Task 1
 ```
-Название блюда
-Количество ингредиентов в блюде
-Название ингредиента | Количество | Единица измерения
-Название ингредиента | Количество | Единица измерения
-...
-```
+from pprint import pprint
 
-Пример([файл в папке files](https://github.com/netology-code/py-homework-basic-files/tree/master/2.4.files)):
-```
-Омлет
-3
-Яйцо | 2 | шт
-Молоко | 100 | мл
-Помидор | 2 | шт
 
-Утка по-пекински
-4
-Утка | 1 | шт
-Вода | 2 | л
-Мед | 3 | ст.л
-Соевый соус | 60 | мл
+def read_recipes():
+    recipe = {}
+    with open('recipes.txt', 'r', encoding='UTF-8') as f:
+        line = f.readline().strip()
+        while line != '':
+            dish = line
+            count_ingredients = int(f.readline().strip())
+            ingredients = []
+            for _ in range(count_ingredients):
+                ingredient_line = f.readline().strip()
+                ingredient_info = ingredient_line.split(' | ')
+                name = ingredient_info[0]
+                quantity = int(ingredient_info[1])
+                measure = ingredient_info[2]
+                ingredient_info = {'ingredient_name': name, 'quantity': quantity, 'measure': measure}
+                ingredients.append(ingredient_info)
+            recipe[dish] = ingredients
+            f.readline()
+            line = f.readline().strip()
+    return recipe
 
-Запеченный картофель
-3
-Картофель | 1 | кг
-Чеснок | 3 | зубч
-Сыр гауда | 100 | г
 
-Фахитос
-5
-Говядина | 500 | г
-Перец сладкий | 1 | шт
-Лаваш | 2 | шт
-Винный уксус | 1 | ст.л
-Помидор | 2 | шт
+pprint(read_recipes())
+
 ```
 
-* В одном файле может быть произвольное количество блюд.
-* Читать список рецептов из этого файла.
-* Соблюдайте кодстайл, разбивайте новую логику на функции и не используйте глобальных переменных.
-
-## Задача №1
-Должен получится следующий словарь
-```python
-cook_book = {
-  'Омлет': [
-    {'ingredient_name': 'Яйцо', 'quantity': 2, 'measure': 'шт.'},
-    {'ingredient_name': 'Молоко', 'quantity': 100, 'measure': 'мл'},
-    {'ingredient_name': 'Помидор', 'quantity': 2, 'measure': 'шт'}
-    ],
-  'Утка по-пекински': [
-    {'ingredient_name': 'Утка', 'quantity': 1, 'measure': 'шт'},
-    {'ingredient_name': 'Вода', 'quantity': 2, 'measure': 'л'},
-    {'ingredient_name': 'Мед', 'quantity': 3, 'measure': 'ст.л'},
-    {'ingredient_name': 'Соевый соус', 'quantity': 60, 'measure': 'мл'}
-    ],
-  'Запеченный картофель': [
-    {'ingredient_name': 'Картофель', 'quantity': 1, 'measure': 'кг'},
-    {'ingredient_name': 'Чеснок', 'quantity': 3, 'measure': 'зубч'},
-    {'ingredient_name': 'Сыр гауда', 'quantity': 100, 'measure': 'г'},
-    ]
-  }
+## Task 2
 ```
+dishes = list(input('Введите через запятую названия блюд, которые хотите приготовить: ').split(', '))
+person_count = int(input('Укажите количество людей: '))
 
-## Задача №2
-Нужно написать функцию, которая на вход принимает список блюд из cook_book и количество персон для кого мы будем готовить
-```python
+
+def get_shop_list_by_dishes(dishes, person_count):
+    cook_book = read_recipes()
+    buy_products = {}
+
+    for dish in dishes:
+        ingredients = cook_book[dish]
+        for ingredient in ingredients:
+            quantity = ingredient['quantity'] * person_count
+            name = ingredient['ingredient_name']
+            if name in buy_products:
+                buy_products[name]['quantity'] += quantity
+            else:
+                buy_products[name] = {'measure': ingredient['measure'], 'quantity': quantity}
+
+    print(buy_products)
+
+
 get_shop_list_by_dishes(dishes, person_count)
-```
-На выходе мы должны получить словарь с названием ингредиентов и его количества для блюда.
-Например, для такого вызова
-```python
-get_shop_list_by_dishes(['Запеченный картофель', 'Омлет'], 2)
-```
-Должен быть следующий результат:
-```
-{
-  'Картофель': {'measure': 'кг', 'quantity': 2},
-  'Молоко': {'measure': 'мл', 'quantity': 200},
-  'Помидор': {'measure': 'шт', 'quantity': 4},
-  'Сыр гауда': {'measure': 'г', 'quantity': 200},
-  'Яйцо': {'measure': 'шт', 'quantity': 4},
-  'Чеснок': {'measure': 'зубч', 'quantity': 6}
-}
-```
-**Обратите внимание, что ингредиенты могут повторяться**
 
-## Задача №3
-В папке лежит некоторое количество файлов. Считайте, что их количество и имена вам заранее известны, пример для выполнения домашней работы можно взять [тут](https://github.com/netology-code/py-homework-basic-files/tree/master/2.4.files/sorted)  
-
-Необходимо объединить их в один по следующим правилам:
-1. Содержимое исходных файлов в результирующем файле должно быть отсортировано по количеству строк в них (то есть первым нужно записать файл с наименьшим количеством строк, а последним - с наибольшим)
-2. Содержимое файла должно предваряться служебной информацией на 2-х строках: имя файла и количество строк в нем
-
-**Пример**
-Даны файлы: 
-1.txt
-```
-Строка номер 1 файла номер 1
-Строка номер 2 файла номер 1
 ```
 
-2.txt
+## Task 3
 ```
-Строка номер 1 файла номер 2
-```
+import os
 
-Итоговый файл: 
-```
-2.txt
-1
-Строка номер 1 файла номер 2
-1.txt
-2
-Строка номер 1 файла номер 1
-Строка номер 2 файла номер 1
-```
 
-## Задача №4
-Для подготовки к следующей лекции прочитайте про [менеджер контекста](https://habr.com/ru/post/196382/).
+def sort_files():
+    files = os.listdir('sorted')
+    result = []
+    for file_ in files:
+        with open(f'sorted/{file_}', 'r', encoding='utf8') as f:
+            text = f.read()
+            f.seek(0)
+            result.append({'name': file_, 'count_lines': len(f.readlines()), 'text': text})
+
+    sorted_files = sorted(result, key=lambda f: f['count_lines'])
+    with open('result.txt', 'w', encoding='utf8') as f:
+        for file_ in sorted_files:
+            f.write(file_['name']+'\n')
+            f.write(str(file_['count_lines'])+'\n')
+            f.write(file_['text']+'\n')
+
+
+sort_files()
+```
