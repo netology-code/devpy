@@ -1,16 +1,33 @@
-# Домашнее задание к лекции 10.«Работа с классами на примере API VK»
+# К лекции 1.1 «Python. Знакомство с консолью»
+### Task1 - link for hackerrank - https://www.hackerrank.com/eshmargunov
 
-Вам предстоит решить задачу поиска общих друзей у пользователей VK.
+### Task2
 
-Ссылка на документацию [VK/dev](https://vk.com/dev/manuals).
-Токен для запросов: 10b2e6b1a90a01875cfaa0d2dd307b7a73a15ceb1acf0c0f2a9e9c586f3b597815652e5c28ed8a1baf13c
+```
+side_square = int(input('Введите размер стороны квадрата:'))
+perimeter_square = 4 * side_square
+area_square = side_square ** 2
+print('Периметр', perimeter_square)
+print('Площадь', area_square)
 
-## Задача №1
-Пользователя нужно описать с помощью класса и реализовать метод поиска общих друзей, используя API VK.
+length_rectangle = int(input('Введите длину прямоугольника:'))
+width_rectangle = int(input('Введите ширину прямоугольника:'))
 
-## Задача №2
-Поиск общих друзей должен происходить с помощью оператора `&`, т.е. `user1 & user2` должен выдать список
-общих друзей пользователей user1 и user2, в этом списке должны быть экземпляры классов.
+perimeter_rectangle = 2 * (length_rectangle + width_rectangle)
+area_rectangle = length_rectangle * width_rectangle
+print('Периметр', perimeter_rectangle)
+print('Площадь', area_rectangle)
+```
 
-## Задача №3
-Вывод `print(user)` должен выводить ссылку на профиль пользователя в сети VK
+### Task3
+
+```
+salary = int(input('Введите заработную плату в месяц: '))
+percent_mortgage = int(input('Введите, какой процент(%) уходит на ипотеку:'))
+percent_life = int(input('Введите, какой процент(%) уходит на жизнь:'))
+year_mortgage = salary * percent_mortgage / 100 * 12
+year_life = salary * percent_life / 100 * 12
+year_capital = salary * 12 - year_mortgage - year_life
+print('На ипотеку было потрачено:', year_mortgage)
+print('Было накоплено:', year_capital)
+```
