@@ -4,7 +4,7 @@ import requests
 import os
 ```
 
-## Задача №1
+## Task 1
 ``` 
 def get_smart_superhero(names):
     top_intelligence = -1
@@ -24,7 +24,7 @@ def get_smart_superhero(names):
 get_smart_superhero(['Hulk', 'Captain America', 'Thanos'])
 ```
 
-## Задача №2
+## Task 2
 ```
 class YaUploader:
     def __init__(self, token: str):
