@@ -39,7 +39,7 @@ if __name__ == '__main__':
     result = uploader.upload('c:\my_folder\file.txt')
 
 ```
-## \*Задача №3(необязательное)
+## Задача со*
 Самый важный сайт для программистов это [stackoverflow](https://stackoverflow.com/). И у него тоже есть [API](https://api.stackexchange.com/docs)
 Нужно написать программу, которая выводит все вопросы за последние два дня и содержит тэг 'Python'.
 Для этого задания токен не требуется.
