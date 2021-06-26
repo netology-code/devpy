@@ -1,39 +1,63 @@
-# Домашнее задание к лекции 2.«Условные конструкции. Операции сравнения»
+# K лекции 1.2 «Условные конструкции. Операции сравнения»
 
-## Задача №1
-Задачи на [hackerrank](https://www.hackerrank.com/domains/python):  
-Решить задачу на hackerrank ["Python If-Else"](https://www.hackerrank.com/challenges/py-if-else/problem).  
+###  Task 1 - hackerrank - https://www.hackerrank.com/eshmargunov
 
-## Задача №2
-На лекции мы рассматривали пример для военкомата. Сейчас мы знаем про его рост. Расширить это приложение следующими условиями:
-1. Проверка на возраст призывника.
-2. Количество детей.
-3. Учится ли он сейчас.
 
-## Задание №3
-Разработать приложение для определения знака зодиака по дате рождения.  
-Пример:  
+### Task 2
+
 ```
-Введите месяц: март
-Введите число: 6
-
-Вывод:
-Рыбы
+age = int(input('Введите возраст призывника: '))
+height = int(input('Введите рост призывника в см: '))
+children = int(input('Введите количество детей у призывника: '))
+study = input('Учится ли сейчас призывник (да/нет)? ')
+if 18 < age < 27:
+    if height < 170:
+        print('Танкисты')
+    elif children >= 2:
+        print('Отсрочка. Нужног ходить каждый год и предоставлять документы о том, что есть более 1 ребенка')
+    elif study == 'да':
+        print('Осрочка на время обучения')
+    else:
+        print('Любые другие войска')
+else:
+    print('Не призывной возраст')
 ```
 
-## Задание №4
-К следующей лекции прочитать про циклы [for](https://foxford.ru/wiki/informatika/tsikl-for-v-python) и
- [while](https://foxford.ru/wiki/informatika/tsikl-while-v-python).
+### Task 3
+*Эта задача имеет большое количество решений. Здесь представлено самое простое*
 
----
-Инструкция по выполнению домашнего задания:
+```
+month = input('введите месяц:')
 
-1. Зарегистрируйтесь на сайте [Repl.IT](https://repl.it/).
-2. Перейдите в раздел **my repls**.
-3. Нажмите кнопку **Start coding now!**, если приступаете впервые, или **New Repl**, если у вас уже есть работы.
-4. В списке языков выберите Python.
-5. Код пишите в левой части окна.
-6. Посмотреть результат выполнения файла можно, нажав на кнопку **Run**. Результат появится в правой части окна.
+date = int(input('введите число:'))
 
+print('вывод:')
 
-*Никаких файлов прикреплять не нужно.*
+if (month == 'март' and date >= 21) or (month == 'апрель' and date <= 19):
+    print('овен')
+elif (month == 'апрель' and date >= 20) or (month == 'май' and date <= 20):
+    print('телец')
+elif (month == 'май' and date >= 21) or (month == 'июнь' and date <= 21):
+    print('близнецы')
+elif (month == 'июнь ' and date >= 22) or (month == 'июль' and date <= 22):
+    print('рак')
+elif (month == 'июль' and date >= 23) or (month == 'август' and date <= 22):
+    print('лев')
+elif (month == 'август' and date >= 23) or (month == 'сентябрь' and date <= 22):
+    print('дева')
+elif (month == 'сентябрь' and date >= 23) or (month == 'октябрь' and date <= 23):
+    print('весы')
+elif (month == 'октябрь' and date >= 24) or (month == 'ноябрь' and date <= 22):
+    print('скорпион')
+elif (month == 'ноябрь' and date >= 23) or (month == 'декабрь' and date <= 21):
+    print('стрелец')
+elif (month == 'декабрь' and date >= 22) or (month == 'январь' and date <= 20):
+    print('козерог')
+elif (month == 'январь' and date >= 21) or (month == 'февраль' and date <= 18):
+    print('водолей')
+elif (month == 'февраль' and date >= 19) or (month == 'март' and date <= 20):
+    print('рыбы')
+else:
+    print('Знак зодиака не найден')
+    
+```
