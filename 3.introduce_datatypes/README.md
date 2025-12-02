@@ -1,7 +1,7 @@
 # K лекции 1.3 «Введение в типы данных и циклы»
 
 ### Task 1
-```
+```python
 boys = ['Peter', 'Alex', 'John', 'Arthur', 'Richard']
 girls = ['Kate', 'Liza', 'Kira', 'Emma', 'Trisha']
 if len(boys) != len(girls):
@@ -15,8 +15,8 @@ for boy, girl in pairs:
 
 ### Task 2
 
-
-```cook_book = [
+```python
+cook_book = [
     ['салат',
      [
          ['картофель', 100, 'гр.'],

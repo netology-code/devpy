@@ -31,8 +31,8 @@ pprint(read_recipes())
 
 ```
 
-## Task 2
-```
+## Task 1
+```python
 dishes = list(input('Введите через запятую названия блюд, которые хотите приготовить: ').split(', '))
 person_count = int(input('Укажите количество людей: '))
 
@@ -58,8 +58,8 @@ get_shop_list_by_dishes(dishes, person_count)
 
 ```
 
-## Task 3
-```
+## Task 2
+```python
 import os
 
 

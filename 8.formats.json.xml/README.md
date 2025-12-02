@@ -1,7 +1,7 @@
 # K лекции 8.«Работа с разными форматами данных»
 
 ## Task 1
-```
+```python
 import json
 import collections
 from pprint import pprint
@@ -20,7 +20,7 @@ def read_json(file_path, len_word=6, top_words=10):
 ```
 
 ## Task 2.
-```
+```python
 def read_xml(file, len_word=6, top_words=10):
    tree = ET.parse(file)
    root = tree.getroot()

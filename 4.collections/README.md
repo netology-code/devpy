@@ -2,7 +2,7 @@
 
 ### Task 1
 
-```
+```python
 geo_logs = [
     {'visit1': ['Москва', 'Россия']},
     {'visit2': ['Дели', 'Индия']},
@@ -23,7 +23,7 @@ for visit in geo_logs:
 ```
 
 ### Task 2
-```
+```python
 ids = {'user1': [213, 213, 213, 15, 213],
        'user2': [54, 54, 119, 119, 119],
        'user3': [213, 98, 98, 35]}
@@ -34,7 +34,7 @@ print(list(my_set))
 ```
 
 ### Task 3
-```
+```python
 queries = [
     'смотреть сериалы онлайн',
     'новости спорта',
@@ -54,14 +54,14 @@ for word in result.items():
 ```
 
 ### Task 4
-```
+```python
 stats = {'facebook': 55, 'yandex': 120, 'vk': 115, 'google': 99, 'email': 42, 'ok': 98}
 new_stats = sorted(stats.items(), key=lambda x: x[1], reverse=True)
 print(new_stats[0][0])
 ```
 
 ### Task 5
-```
+```python
 lst = ['2018-01-01', 'yandex', 'cpc', 100]
 lst = list(reversed(lst))
 new_dict = lst[0]

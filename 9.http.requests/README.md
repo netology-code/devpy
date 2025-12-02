@@ -1,11 +1,8 @@
 # K лекции 9.«Работа с библиотекой requests, http-запросы»
-```
-import requests
-import os
-```
 
 ## Task 1
-``` 
+```python
+import requests
 def get_smart_superhero(names):
     top_intelligence = -1
     top_name = ''
@@ -25,7 +22,11 @@ get_smart_superhero(['Hulk', 'Captain America', 'Thanos'])
 ```
 
 ## Task 2
-```
+```python
+import requests
+import os
+
+
 class YaUploader:
     def __init__(self, token: str):
         self.token = token
