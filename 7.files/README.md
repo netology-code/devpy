@@ -79,7 +79,7 @@ get_shop_list_by_dishes(dishes, person_count)
 get_shop_list_by_dishes(['Запеченный картофель', 'Омлет'], 2)
 ```
 Должен быть следующий результат:
-```
+```python
 {
   'Картофель': {'measure': 'кг', 'quantity': 2},
   'Молоко': {'measure': 'мл', 'quantity': 200},
